@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {createGlobalStyle} from 'styled-components';
 
+import Login from './pages/Login';
+
 const GlobalStyle = createGlobalStyle`
   @import url(
     '<https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap>'
@@ -32,6 +34,7 @@ const GlobalStyle = createGlobalStyle`
 
 ReactDOM.render(
   <React.StrictMode>
+    <Login/>
     <GlobalStyle/>
   </React.StrictMode>,
   document.getElementById('root')
