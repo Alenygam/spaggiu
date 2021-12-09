@@ -2,13 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
   
 const ButtonStyle = styled.button`
-  margin: .5em;
-  padding: .5em 1.25em;
-  font-size: 1.5em;
+  width: 113px;
+  height: 30px;
   border-radius: .5em;
   background-color: #B84A62;
   color: #FFFFFF;
   transition: .5s;
+  font-family: 'Smooch', sans-serif;
 
   :hover {
     color: #0A2239;
