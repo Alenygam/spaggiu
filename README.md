@@ -2,6 +2,4 @@
 
 Essendo che l'applicazione web del registro elettronico Spaggiari fa altamente schifo, ho deciso di fare la mia applicazione web per esso.
 
-L'API del registro elettronico Spaggiari non è documentata da nessuna parte, e ho dovuto farne il reverse engineering io.
-
-Purtroppo l'API fa così schifo da essere quasi indocumentabile. Mi dispiace tantissimo per tutti quelli che volevano riprodurre un progetto simile, ma sono quasi obbligato dalle circostanze a non documentarla.
+Mentre lavoravo al progetto, ho scoperto che il registro elettronico Spaggiari ha effettivamente un [api REST](https://github.com/michelangelomo/Classeviva-Official-Endpoints), di cui io non sapevo l'esistenza, perchè non è documentata da nessuna parte sul loro sito. Ne ho scoperto l'esistenza solo leggendo il codice dell'applicazione [Registro Elettronico](https://github.com/riccardocalligaro/registro_elettronico) di Riccardo Calligaro.
