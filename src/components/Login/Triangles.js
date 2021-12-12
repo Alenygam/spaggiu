@@ -25,7 +25,11 @@ const Triangle1 = styled.div`
     z-index: 998;
     
     transition: 1s;
-    transition-delay: ${props => props.isLoading ? '.5s' : '0s'};
+    transition-delay: ${props => props.isLoading ? '.25s' : '0s'};
+
+    @media (max-width: 1115px) {
+        display: none;
+    }
 `;
 const Triangle2 = styled.div`
     background: #D98324;
@@ -42,5 +46,9 @@ const Triangle2 = styled.div`
     z-index: 997;
 
     transition: 1s;
-    transition-delay: ${props => props.isLoading ? '0s' : '.5s'};
+    transition-delay: ${props => props.isLoading ? '0s' : '.25s'};
+    
+    @media (max-width: 1115px) {
+        display: none;
+    }
 `;

@@ -1,8 +1,13 @@
+import React from 'react';
 import LoginButton from '../../parts/Buttons/LoginButton';
 
-export default function LoginForm() {
+export default function LoginForm({submitForm}) {
+    const uid = React.useRef();
+    const passwd = React.useRef();
+
     return (
         <form
+        onSubmit={(event) => submitForm(event, uid.current.value, passwd.current.value)}
         style={{
             backgroundColor: "#FFFFFF",
             width: 263,
@@ -10,7 +15,7 @@ export default function LoginForm() {
             position: 'absolute',
             top: '50%',
             left: '50%',
-            transform: 'translate(-70%, -50%)',
+            transform: 'translate(-60%, -50%)',
             zIndex: 996,
             borderRadius: 12,
             boxShadow: '0 0 18px #D98324',
@@ -23,8 +28,9 @@ export default function LoginForm() {
             <div style={{flexGrow: 1}}>
                 <p style={{fontSize: 18}}>Inserisci le tue credenziali di Spaggiari per continuare</p><br/><br/>
 
-                <label for="userCode">Codice Personale</label><br/>
+                <label htmlFor="userCode">Codice Personale</label><br/>
                 <input 
+                ref={uid}
                 style={{
                     fontSize: 12,
                     border: '1px solid #606060', 
@@ -36,8 +42,9 @@ export default function LoginForm() {
                 name="userCode"
                 /><br/><br/>
                 
-                <label for="password">Password</label><br/>
+                <label htmlFor="password">Password</label><br/>
                 <input 
+                ref={passwd}
                 style={{
                     fontSize: 12,
                     border: '1px solid #606060', 
