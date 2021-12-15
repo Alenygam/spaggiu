@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import {createGlobalStyle} from 'styled-components';
 
 import Login from './pages/Login';
@@ -30,8 +31,12 @@ const GlobalStyle = createGlobalStyle`
 
 ReactDOM.render(
   <React.StrictMode>
-    <Login/>
-    <GlobalStyle/>
+    <BrowserRouter>
+      <Routes>
+        <Route exact path="/login" element={<Login/>}/>
+      </Routes>
+    </BrowserRouter>
+    <GlobalStyle />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
