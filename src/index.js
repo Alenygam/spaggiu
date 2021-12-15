@@ -2,11 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {createGlobalStyle} from 'styled-components';
 
-const GlobalStyle = createGlobalStyle`
-  @import url(
-    '<https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap>'
-  );
+import Login from './pages/Login';
 
+const GlobalStyle = createGlobalStyle`
   * {
     margin: 0;
     padding: 0;
@@ -32,6 +30,7 @@ const GlobalStyle = createGlobalStyle`
 
 ReactDOM.render(
   <React.StrictMode>
+    <Login/>
     <GlobalStyle/>
   </React.StrictMode>,
   document.getElementById('root')
