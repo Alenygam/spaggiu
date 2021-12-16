@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import {createGlobalStyle} from 'styled-components';
 
 import Login from './pages/Login';
+import Home from './pages/Home';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -34,6 +35,7 @@ ReactDOM.render(
     <BrowserRouter>
       <Routes>
         <Route exact path="/login" element={<Login/>}/>
+        <Route exact path="/home" element={<Home/>}/>
       </Routes>
     </BrowserRouter>
     <GlobalStyle />

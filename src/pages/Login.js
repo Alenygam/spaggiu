@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 import Api from '../api/api';
 
@@ -17,14 +18,21 @@ const Container = styled.div`
 
 export default function Login() {
     const [loading, setLoading] = React.useState(false);
+    const navigate = useNavigate()
 
 
     const submitForm = async (event, uid, passwd) => {
         event.preventDefault();
         setLoading(true);
         const api = new Api();
-        await api.login(uid, passwd);
-        setLoading(false);
+        const login = await api.login(uid, passwd);
+        // TODO: Add error message if failed login
+        if (login.error) {
+            setLoading(false);
+            return;
+        }
+
+        navigate('/home');
     }
 
     return (

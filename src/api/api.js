@@ -90,6 +90,7 @@ class Api {
             localStorage.setItem("uid", uidFromAPI);
             localStorage.setItem("token", json.token);
             localStorage.setItem("expire", json.expire);
+            return json;
         } catch (err) {
             console.error(err);
             return {error: true, message: err.message};
