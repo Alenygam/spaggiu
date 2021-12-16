@@ -1,3 +1,11 @@
+function getBySubjectID(arr, subjectID) {
+    return arr.filter((obj) => obj["subjectId"] === subjectID);
+}
+
+function getByPeriodID(arr, periodID) {
+    return arr.filter((obj) => obj["periodPos"] === periodID);
+}
+
 class Api {
     token
     uid
@@ -14,6 +22,30 @@ class Api {
         this.uid = localStorage.getItem("uid");
         this.token = localStorage.getItem("token");
     }
+
+    async grades({subjectID, periodID}) {
+        try {
+            const res = await fetch(`${this.baseURL}/students/${this.uid}/grades`, {
+                headers: {
+                    'Z-Auth-Token': this.token
+                }
+            });
+            const json = await res.json();
+            if (!res.ok) return {error: true, ...json};
+            let result = json["grades"];
+            if (subjectID) {
+                result = getBySubjectID(result, subjectID);
+            }
+            if (periodID) {
+                result = getByPeriodID(result, subjectID);
+            }
+
+            return result;
+        } catch (err) {
+            console.error(err);
+            return {error: true, message: err.message};
+        }
+    }
     
     async login(uid, password) {
         try {
@@ -25,9 +57,9 @@ class Api {
                     uid: uid,
                 }),
                 headers: {'Content-Type': 'application/json'}
-            })
+            });
             const json = await res.json();
-            if (!res.ok) return json;
+            if (!res.ok) return {error: true, ...json};
 
             const uidFromAPI = json.ident.substring(1);
             this.uid = uidFromAPI;
@@ -37,8 +69,8 @@ class Api {
             localStorage.setItem("token", json.token);
             localStorage.setItem("expire", json.expire);
         } catch (err) {
-            console.log(err);
-            return;
+            console.error(err);
+            return {error: true, message: err.message};
         }
     }
 }
