@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import Spinner from 'react-spinkit';
 import {useNavigate} from 'react-router-dom';
 
+import Sidebar from '../parts/Sidebar';
+
 import Api from '../api/api';
 
 const Container = styled.div`
@@ -27,7 +29,7 @@ export default function Home() {
     if (isAuthed) {
         return (
             <Container>
-
+                <Sidebar/>
             </Container>
         )
     } else {
