@@ -31,6 +31,23 @@ class Api {
         this.token = localStorage.getItem("token");
     }
 
+    async periods() {
+        var url = `${this.baseURL}/students/${this.uid}/periods`
+        try {
+            const res = await fetch(url, {
+                headers: {
+                    'Z-Auth-Token': this.token
+                }
+            });
+            const json = await res.json();
+            if (!res.ok) return {error: true, ...json};
+            return json["periods"]
+        } catch (err) {
+            console.error(err);
+            return {error: true, message: err.message};
+        }
+    }
+
     async absences({begin, end}) {
         var url = `${this.baseURL}/students/${this.uid}/absences/details`
         if (begin) {
