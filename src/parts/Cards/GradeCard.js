@@ -46,11 +46,14 @@ export default function GradeCard({grade}) {
                 flexDirection: 'row',
                 alignItems: 'center',
             }}>
-                <p style={{
-                    fontSize: 18,
-                    textAlign: 'center',
-                    width: '100%'
-                }}>
+                <p 
+                    style={{
+                        fontSize: 18,
+                        textAlign: 'center',
+                        width: '100%'
+                    }}
+                    title={grade.subjectDesc}
+                >
                     {grade.subjectDesc.substr(0, 13)}...
                 </p>
             </div>
