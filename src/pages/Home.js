@@ -5,6 +5,7 @@ import {useNavigate} from 'react-router-dom';
 
 import Sidebar from '../parts/Sidebar';
 import GradesWidget from '../components/Home/GradesWidget';
+import AbsencesWidget from '../components/Home/AbsencesWidget';
 
 import Api from '../api/api';
 
@@ -44,6 +45,7 @@ export default function Home() {
                 <Sidebar/>
                 <WidgetContainer>
                     <GradesWidget/>
+                    <AbsencesWidget/>
                 </WidgetContainer>
             </Container>
         )

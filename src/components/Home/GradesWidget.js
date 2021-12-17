@@ -83,8 +83,8 @@ export default function GradesWidget() {
                     <b>Voti Recenti</b>
                 </p>
                 {
-                    grades.map((grade) => {
-                        return <GradeCard grade={grade}/>
+                    grades.map((grade, index) => {
+                        return <GradeCard key={`${index}-grade`} grade={grade}/>
                     })
                 }
             </div>
