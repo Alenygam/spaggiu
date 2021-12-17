@@ -6,6 +6,14 @@ function getByPeriodID(arr, periodID) {
     return arr.filter((obj) => obj["periodPos"] === periodID);
 }
 
+function sortGradesByDate(arr) {
+    for (let index in arr) {
+        const dateArray = arr[index].evtDate.split('-');
+        arr[index].unixTimestamp = (new Date(+dateArray[0], +dateArray[1] - 1, +dateArray[2] - 1)).getTime();
+    }
+    return arr.sort((a, b) => b.unixTimestamp - a.unixTimestamp);
+}
+
 class Api {
     token
     uid
@@ -61,6 +69,8 @@ class Api {
             if (periodID) {
                 result = getByPeriodID(result, subjectID);
             }
+
+            result = sortGradesByDate(result);
 
             return result;
         } catch (err) {
