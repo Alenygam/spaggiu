@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import {createGlobalStyle} from 'styled-components';
 
 import Login from './pages/Login';
+import Home from './pages/Home';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -30,8 +32,13 @@ const GlobalStyle = createGlobalStyle`
 
 ReactDOM.render(
   <React.StrictMode>
-    <Login/>
-    <GlobalStyle/>
+    <BrowserRouter>
+      <Routes>
+        <Route exact path="/login" element={<Login/>}/>
+        <Route exact path="/home" element={<Home/>}/>
+      </Routes>
+    </BrowserRouter>
+    <GlobalStyle />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
