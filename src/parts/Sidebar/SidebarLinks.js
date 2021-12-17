@@ -60,6 +60,9 @@ export default function SidebarLinks({isOpen}) {
 
     return (
         <SidebarLinksContainer isOpen={isOpen} isFlex={isFlex}>
+            <SidebarLink onClick={() => navigate('/home')}>
+                Home
+            </SidebarLink>
             <SidebarLink onClick={() => navigate('/grades')}>
                 Voti
             </SidebarLink>
