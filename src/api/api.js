@@ -101,7 +101,7 @@ class Api {
                 result = getBySubjectID(result, subjectID);
             }
             if (periodID) {
-                result = getByPeriodID(result, subjectID);
+                result = getByPeriodID(result, periodID);
             }
 
             result = sortGradesByDate(result);
