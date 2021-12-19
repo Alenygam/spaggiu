@@ -5,6 +5,7 @@ import {createGlobalStyle} from 'styled-components';
 
 import Login from './pages/Login';
 import Home from './pages/Home';
+import Grades from './pages/Grades';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -36,6 +37,7 @@ ReactDOM.render(
       <Routes>
         <Route exact path="/login" element={<Login/>}/>
         <Route exact path="/home" element={<Home/>}/>
+        <Route exact path="/grades" element={<Grades/>}/>
       </Routes>
     </BrowserRouter>
     <GlobalStyle />
