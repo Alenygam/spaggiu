@@ -4,6 +4,7 @@ import Spinner from 'react-spinkit';
 import {useNavigate} from 'react-router-dom';
 
 import Sidebar from '../parts/Sidebar';
+import TabViewButtons from '../components/Grades/TabViewButtons';
 
 import Api from '../api/api';
 
@@ -19,6 +20,7 @@ const Container = styled.div`
 export default function Grades() {
     const [isAuthed, setIsAuthed] = useState(false);
     const [periods, setPeriods] = useState();
+    const [selectedPeriod, setSelectedPeriod] = useState();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -50,6 +52,7 @@ export default function Grades() {
     return (
         <Container>
             <Sidebar/>
+            <TabViewButtons setPeriod={setSelectedPeriod} periods={periods} selectedPeriod={selectedPeriod}/>
         </Container>
     )
 }
