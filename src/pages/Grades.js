@@ -5,6 +5,7 @@ import {useNavigate} from 'react-router-dom';
 
 import Sidebar from '../parts/Sidebar';
 import TabViewButtons from '../components/Grades/TabViewButtons';
+import Subjects from '../components/Grades/Subjects';
 
 import Api from '../api/api';
 
@@ -53,6 +54,7 @@ export default function Grades() {
         <Container>
             <Sidebar/>
             <TabViewButtons setPeriod={setSelectedPeriod} periods={periods} selectedPeriod={selectedPeriod}/>
+            <Subjects period={selectedPeriod}/>
         </Container>
     )
 }
