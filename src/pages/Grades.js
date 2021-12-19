@@ -18,16 +18,21 @@ const Container = styled.div`
 
 export default function Grades() {
     const [isAuthed, setIsAuthed] = useState(false);
+    const [periods, setPeriods] = useState();
     const navigate = useNavigate();
 
     useEffect(() => {
         const api = new Api();
-        if (api.token) return setIsAuthed(true);
+        if (!api.token) return navigate('/login');
+        setIsAuthed(true);
+        api.periods().then((res) => {
+            if (res.error) return;
+            setPeriods(res);
+        })
 
-        navigate('/login');
     }, [navigate])
 
-    if (!isAuthed) {
+    if (!isAuthed || !periods) {
         return (
             <Container>
                 <div style={{
