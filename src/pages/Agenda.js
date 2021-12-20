@@ -6,6 +6,7 @@ import Spinner from 'react-spinkit';
 import Api from '../api/api';
 
 import Sidebar from '../parts/Sidebar';
+import CalendarButtons from '../components/Agenda/CalendarButtons';
 
 const Container = styled.div`
     background-color: #0A2239;
@@ -17,6 +18,7 @@ const Container = styled.div`
 
 export default function Agenda() {
     const [isAuthed, setIsAuthed] = useState(false);
+    const [date, setDate] = useState(new Date());
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -42,6 +44,7 @@ export default function Agenda() {
     return (
         <Container>
             <Sidebar/>
+            <CalendarButtons date={date} setDate={setDate}/>
         </Container>
     )
 }
