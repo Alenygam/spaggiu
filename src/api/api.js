@@ -30,6 +30,23 @@ class Api {
         this.uid = localStorage.getItem("uid");
         this.token = localStorage.getItem("token");
     }
+
+    async agenda({begin, end, eventCode}) {
+        var url = `${this.baseURL}/students/${this.uid}/agenda/${eventCode? eventCode : 'all'}/${begin}/${end}`
+        try {
+            const res = await fetch(url, {
+                headers: {
+                    'Z-Auth-Token': this.token
+                }
+            });
+            const json = await res.json();
+            if (!res.ok) return {error: true, ...json};
+            return json["agenda"]
+        } catch (err) {
+            console.error(err);
+            return {error: true, message: err.message};
+        }
+    }
     
     async subjects() {
         var url = `${this.baseURL}/students/${this.uid}/subjects`
