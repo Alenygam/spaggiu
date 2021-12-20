@@ -7,6 +7,7 @@ import Api from '../api/api';
 
 import Sidebar from '../parts/Sidebar';
 import CalendarButtons from '../components/Agenda/CalendarButtons';
+import Calendar from '../components/Agenda/Calendar';
 
 const Container = styled.div`
     background-color: #0A2239;
@@ -45,6 +46,7 @@ export default function Agenda() {
         <Container>
             <Sidebar/>
             <CalendarButtons date={date} setDate={setDate}/>
+            <Calendar date={date}/>
         </Container>
     )
 }
