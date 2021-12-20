@@ -29,12 +29,49 @@ export default function Subjects({period}) {
         const api = new Api();
         if (!api.token) return navigate('/login');
 
-        api.subjects().then((res) => {
-            if (res.error) return;
+        (async () => {
+            var res = {};
+
+            const allSubjects = await api.subjects()
+            if (allSubjects.error) return;
+
+            let args = {};
+            if (period) args.periodID = period.periodPos;
+            const allGradesForPeriod = await api.grades(args);
+            if (!allGradesForPeriod) return;
+
+            for (let subject of allSubjects) {
+                const subjectGrades = allGradesForPeriod.filter((obj) => obj.subjectId === subject.id);
+
+                var numberOfGrades = subjectGrades.length;
+                if (numberOfGrades < 1) {
+                    res[subject.id] = {
+                        averageGrade: 0,
+                        ...subject
+                    }
+                    continue;
+                }
+                var sum = 0;
+                for (let grade of subjectGrades) {
+                    if (grade.decimalValue === null) {
+                        numberOfGrades--;
+                    }
+
+                    sum += grade.decimalValue;
+                }
+                sum = sum * 100;
+
+                const averageGrade = Math.round(sum / numberOfGrades) / 100;
+
+                res[subject.id] = {
+                    averageGrade: averageGrade,
+                    ...subject
+                }
+            }
+            
             setSubjects(res);
-            console.log(res);
-        })
-    }, [navigate])
+        })()
+    }, [navigate, period])
 
     if (!subjects) {
         return (
@@ -55,8 +92,8 @@ export default function Subjects({period}) {
         <Container>
             <FlexBox>
                 {
-                    subjects.map((subject, index) => {
-                        return <SubjectCard subject={subject} period={period} key={`${index}-subject`}/>
+                    Object.keys(subjects).map((subject) => {
+                        return <SubjectCard subject={subjects[subject]} key={`${subject}-subject`}/>
                     })
                 }
             </FlexBox>
