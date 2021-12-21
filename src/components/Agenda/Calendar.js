@@ -31,12 +31,18 @@ export default function Calendar({ date }) {
         allMonthsDay.push(d);
     }
 
-    const beginString = `${date.getFullYear()}${date.getMonth() + 1}01`
-    const endString = `${date.getFullYear()}${date.getMonth() + 1}${allMonthsDay[allMonthsDay.length - 1].getDate()}`
+    var dateMonthString = String(date.getMonth() + 1);
+    if (dateMonthString.length < 2) {
+        dateMonthString = 0 + dateMonthString;
+    }
+
+    const beginString = `${date.getFullYear()}${dateMonthString}01`
+    const endString = `${date.getFullYear()}${dateMonthString}${allMonthsDay[allMonthsDay.length - 1].getDate()}`
 
     useEffect(() => {
         const api = new Api();
         if (!api.token) return navigate('/login');
+        setEvents(null);
 
         api.agenda({begin: beginString, end: endString}).then((res) => {
             if (res.error) return;
@@ -47,8 +53,8 @@ export default function Calendar({ date }) {
                 const dateString = `${d.getFullYear()}${d.getMonth() + 1}${d.getDate()}`;
                 if (!events[dateString]) events[dateString] = [];
                 events[dateString].push(event);
-                setEvents(events);
             }
+            setEvents(events);
         })
 
     }, [navigate, date, beginString, endString])
