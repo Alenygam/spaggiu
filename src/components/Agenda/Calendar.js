@@ -4,6 +4,7 @@ import Spinner from "react-spinkit";
 import Api from "../../api/api";
 import { useNavigate } from "react-router-dom";
 import CalendarDay from "./CalendarDay";
+import AgendaModal from "./AgendaModal";
 
 const Container = styled.div`
     width: calc(100% - 490px);
@@ -50,14 +51,14 @@ export default function Calendar({ date }) {
             // Parsing events by date
             for (let event of res) {
                 let d = new Date(event["evtDatetimeBegin"]);
-                const dateString = `${d.getFullYear()}${d.getMonth() + 1}${d.getDate()}`;
+                const dateString = `${d.getFullYear()}${dateMonthString}${d.getDate()}`;
                 if (!events[dateString]) events[dateString] = [];
                 events[dateString].push(event);
             }
             setEvents(events);
         })
 
-    }, [navigate, date, beginString, endString])
+    }, [navigate, date, dateMonthString, beginString, endString])
 
     if (!events) {
         return (
@@ -91,6 +92,7 @@ export default function Calendar({ date }) {
                     }
                 </div>
             </Container>
+            {modalToShow && <AgendaModal setAgendaModel={setModalToShow} events={events} dateString={modalToShow}/>}
         </>
     );
 }

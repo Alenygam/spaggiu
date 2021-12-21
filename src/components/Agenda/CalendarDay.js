@@ -34,12 +34,16 @@ const Circle = styled.div`
 `
 
 export default function CalendarDay({events, dayDate, setModalToShow}) {
-    const dateString = `${dayDate.getFullYear()}${dayDate.getMonth() + 1}${dayDate.getDate()}`;
+    var dateMonthString = String(dayDate.getMonth() + 1);
+    if (dateMonthString.length < 2) {
+        dateMonthString = 0 + dateMonthString;
+    }
+    const dateString = `${dayDate.getFullYear()}${dateMonthString}${dayDate.getDate()}`;
 
     return (
         <CalendarDayStyle 
         dayDate={dayDate}
-        onClick={() => setModalToShow(dateString)}
+        onClick={() => {if (events[dateString]) setModalToShow(dateString)}}
         >
             <p style={{ width: "100%", textAlign: "center", marginBottom: '10px' }}>
                 {dayDate.getDate()}
