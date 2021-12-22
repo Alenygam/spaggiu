@@ -2,7 +2,7 @@ import React from 'react'
 
 import RoundReadOnlySlider from '../Sliders/RoundReadOnlySlider'
 
-export default function GradeCard({grade, numberOfChars}) {
+export default function GradeCardForModal({grade, numberOfChars}) {
     if (!numberOfChars) numberOfChars = 13;
 
     return (
@@ -55,9 +55,9 @@ export default function GradeCard({grade, numberOfChars}) {
                         textAlign: 'center',
                         width: '100%'
                     }}
-                    title={grade.subjectDesc}
+                    title={grade.notesForFamily}
                 >
-                    {grade.subjectDesc.substr(0, numberOfChars)}...
+                    {grade.notesForFamily.substr(0, numberOfChars)}...
                 </p>
             </div>
         </div>

@@ -4,6 +4,8 @@ import Api from '../../api/api';
 import {useNavigate} from 'react-router-dom';
 import Spinner from 'react-spinkit';
 import SubjectCard from '../../parts/Cards/SubjectCard';
+import SidePanel from './SidePanel';
+import SubjectModal from './SubjectModal';
 
 const Container = styled.div`
     position: absolute;
@@ -16,18 +18,47 @@ const Container = styled.div`
 const FlexBox = styled.div`
     width: 100%;
     flex-direction: column;
-    align-items: center;
     height: 100%;
     overflow: auto;
 `
 
+const GridContainer = styled.div`
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    padding: 10px;
+    grid-gap: 10px;
+    grid-auto-flow: row;
+    height: 100%;
+`
+
 export default function Subjects({period}) {
     const [subjects, setSubjects] = useState();
+    const [grades, setGrades] = useState();
+    const [averageGrade, setAverageGrade] = useState();
+    const [modalData, setModalData] = useState();
     const navigate = useNavigate()
 
     useEffect(() => {
         const api = new Api();
         if (!api.token) return navigate('/login');
+
+        const getAverageGrade = (gradesArray) => {
+                var numberOfGrades = gradesArray.length;
+                if (numberOfGrades < 1) {
+                    return 0;
+                }
+                var sum = 0;
+                for (let grade of gradesArray) {
+                    if (grade.decimalValue === null) {
+                        numberOfGrades--;
+                    }
+
+                    sum += grade.decimalValue;
+                }
+                sum = sum * 100;
+
+                return Math.round(sum / numberOfGrades) / 100;
+        }
 
         (async () => {
             var res = {};
@@ -43,37 +74,19 @@ export default function Subjects({period}) {
             for (let subject of allSubjects) {
                 const subjectGrades = allGradesForPeriod.filter((obj) => obj.subjectId === subject.id);
 
-                var numberOfGrades = subjectGrades.length;
-                if (numberOfGrades < 1) {
-                    res[subject.id] = {
-                        averageGrade: 0,
-                        ...subject
-                    }
-                    continue;
-                }
-                var sum = 0;
-                for (let grade of subjectGrades) {
-                    if (grade.decimalValue === null) {
-                        numberOfGrades--;
-                    }
-
-                    sum += grade.decimalValue;
-                }
-                sum = sum * 100;
-
-                const averageGrade = Math.round(sum / numberOfGrades) / 100;
-
                 res[subject.id] = {
-                    averageGrade: averageGrade,
+                    averageGrade: getAverageGrade(subjectGrades),
                     ...subject
                 }
             }
             
+            setAverageGrade(getAverageGrade(allGradesForPeriod));
             setSubjects(res);
+            setGrades(allGradesForPeriod);
         })()
     }, [navigate, period])
 
-    if (!subjects) {
+    if (!subjects || !grades || !averageGrade) {
         return (
             <Container>
                 <div style={{
@@ -89,14 +102,22 @@ export default function Subjects({period}) {
     } 
 
     return (
-        <Container>
-            <FlexBox>
-                {
-                    Object.keys(subjects).map((subject) => {
-                        return <SubjectCard subject={subjects[subject]} key={`${subject}-subject`}/>
-                    })
-                }
-            </FlexBox>
-        </Container>
+        <>
+            <Container>
+                <GridContainer>
+                    <FlexBox>
+                        <SidePanel averageGrade={averageGrade} grades={grades}/>
+                    </FlexBox>
+                    <FlexBox>
+                        {
+                            Object.keys(subjects).map((subject) => {
+                                return <SubjectCard onClick={() => setModalData(subjects[subject])} subject={subjects[subject]} key={`${subject}-subject`}/>
+                            })
+                        }
+                    </FlexBox>
+                </GridContainer>
+            </Container>
+            {modalData && <SubjectModal setModalData={setModalData} grades={grades} subject={modalData}/>}
+        </>
     )
 }
