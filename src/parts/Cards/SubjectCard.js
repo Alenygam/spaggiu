@@ -10,15 +10,16 @@ const Card = styled.div`
     background-color: #061523;
     border-radius: 10px;
     margin: 5px;
+    cursor: pointer;
 `
 const CardContainer = styled.div`
     display: grid;
     place-items: center;
 `
-export default function SubjectCard({subject}) {
+export default function SubjectCard({subject, onClick}) {
     return (
         <CardContainer>
-            <Card>
+            <Card onClick={onClick}>
                 <div style={{position: 'relative'}}>
                     <RoundReadOnlySlider
                         value={subject.averageGrade}

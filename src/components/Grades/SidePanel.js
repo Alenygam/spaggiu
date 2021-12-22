@@ -1,6 +1,5 @@
 import React from 'react'
 import RoundReadOnlySlider from '../../parts/Sliders/RoundReadOnlySlider'
-import GradeCard from '../../parts/Cards/GradeCard'
 
 export default function SidePanel({averageGrade, grades}) {
     return (
@@ -35,7 +34,6 @@ export default function SidePanel({averageGrade, grades}) {
                     {averageGrade}
                 </p>
             </div>
-            {grades.splice(0, 3).map((grade) => <GradeCard key={grade.evtId} grade={grade} numberOfChars={13}/>)}
         </>
     )
 }

@@ -5,6 +5,7 @@ import {useNavigate} from 'react-router-dom';
 import Spinner from 'react-spinkit';
 import SubjectCard from '../../parts/Cards/SubjectCard';
 import SidePanel from './SidePanel';
+import SubjectModal from './SubjectModal';
 
 const Container = styled.div`
     position: absolute;
@@ -34,6 +35,7 @@ export default function Subjects({period}) {
     const [subjects, setSubjects] = useState();
     const [grades, setGrades] = useState();
     const [averageGrade, setAverageGrade] = useState();
+    const [modalData, setModalData] = useState();
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -100,19 +102,22 @@ export default function Subjects({period}) {
     } 
 
     return (
-        <Container>
-            <GridContainer>
-                <FlexBox>
-                    <SidePanel averageGrade={averageGrade} grades={grades}/>
-                </FlexBox>
-                <FlexBox>
-                    {
-                        Object.keys(subjects).map((subject) => {
-                            return <SubjectCard subject={subjects[subject]} key={`${subject}-subject`}/>
-                        })
-                    }
-                </FlexBox>
-            </GridContainer>
-        </Container>
+        <>
+            <Container>
+                <GridContainer>
+                    <FlexBox>
+                        <SidePanel averageGrade={averageGrade} grades={grades}/>
+                    </FlexBox>
+                    <FlexBox>
+                        {
+                            Object.keys(subjects).map((subject) => {
+                                return <SubjectCard onClick={() => setModalData(subjects[subject])} subject={subjects[subject]} key={`${subject}-subject`}/>
+                            })
+                        }
+                    </FlexBox>
+                </GridContainer>
+            </Container>
+            {modalData && <SubjectModal setModalData={setModalData} grades={grades} subject={modalData}/>}
+        </>
     )
 }
