@@ -4,6 +4,8 @@ import Api from '../../api/api';
 import {useNavigate} from 'react-router-dom';
 import Spinner from 'react-spinkit';
 import SubjectCard from '../../parts/Cards/SubjectCard';
+import RoundReadOnlySlider from '../../parts/Sliders/RoundReadOnlySlider';
+import GradeCard from '../../parts/Cards/GradeCard';
 
 const Container = styled.div`
     position: absolute;
@@ -16,18 +18,46 @@ const Container = styled.div`
 const FlexBox = styled.div`
     width: 100%;
     flex-direction: column;
-    align-items: center;
     height: 100%;
     overflow: auto;
 `
 
+const GridContainer = styled.div`
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    padding: 10px;
+    grid-gap: 10px;
+    grid-auto-flow: row;
+    height: 100%;
+`
+
 export default function Subjects({period}) {
     const [subjects, setSubjects] = useState();
+    const [grades, setGrades] = useState();
+    const [averageGrade, setAverageGrade] = useState();
     const navigate = useNavigate()
 
     useEffect(() => {
         const api = new Api();
         if (!api.token) return navigate('/login');
+
+        const getAverageGrade = (gradesArray) => {
+                var numberOfGrades = gradesArray.length;
+                if (numberOfGrades < 1) {
+                    return 0;
+                }
+                var sum = 0;
+                for (let grade of gradesArray) {
+                    if (grade.decimalValue === null) {
+                        numberOfGrades--;
+                    }
+
+                    sum += grade.decimalValue;
+                }
+                sum = sum * 100;
+
+                return Math.round(sum / numberOfGrades) / 100;
+        }
 
         (async () => {
             var res = {};
@@ -43,37 +73,19 @@ export default function Subjects({period}) {
             for (let subject of allSubjects) {
                 const subjectGrades = allGradesForPeriod.filter((obj) => obj.subjectId === subject.id);
 
-                var numberOfGrades = subjectGrades.length;
-                if (numberOfGrades < 1) {
-                    res[subject.id] = {
-                        averageGrade: 0,
-                        ...subject
-                    }
-                    continue;
-                }
-                var sum = 0;
-                for (let grade of subjectGrades) {
-                    if (grade.decimalValue === null) {
-                        numberOfGrades--;
-                    }
-
-                    sum += grade.decimalValue;
-                }
-                sum = sum * 100;
-
-                const averageGrade = Math.round(sum / numberOfGrades) / 100;
-
                 res[subject.id] = {
-                    averageGrade: averageGrade,
+                    averageGrade: getAverageGrade(subjectGrades),
                     ...subject
                 }
             }
             
+            setAverageGrade(getAverageGrade(allGradesForPeriod));
             setSubjects(res);
+            setGrades(allGradesForPeriod);
         })()
     }, [navigate, period])
 
-    if (!subjects) {
+    if (!subjects || !grades || !averageGrade) {
         return (
             <Container>
                 <div style={{
@@ -90,13 +102,48 @@ export default function Subjects({period}) {
 
     return (
         <Container>
-            <FlexBox>
-                {
-                    Object.keys(subjects).map((subject) => {
-                        return <SubjectCard subject={subjects[subject]} key={`${subject}-subject`}/>
-                    })
-                }
-            </FlexBox>
+            <GridContainer>
+                <FlexBox>
+                    <div style={{
+                        width: '250px',
+                        height: '250px',
+                        backgroundColor: '#061523',
+                        borderRadius: '10px',
+                        position: 'relative',
+                    }}>
+                        <div style={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)'
+                        }}>
+                            <RoundReadOnlySlider
+                                value={averageGrade}
+                                progressColor="#B84A62"
+                                size={200} 
+                                progressWidth={10}
+                            />
+                        </div>
+                        <p style={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            fontSize: 20
+                        }}>
+                            {averageGrade}
+                        </p>
+                    </div>
+                    {grades.splice(0, 3).map((grade) => <GradeCard key={grade.evtId} grade={grade} numberOfChars={13}/>)}
+                </FlexBox>
+                <FlexBox>
+                    {
+                        Object.keys(subjects).map((subject) => {
+                            return <SubjectCard subject={subjects[subject]} key={`${subject}-subject`}/>
+                        })
+                    }
+                </FlexBox>
+            </GridContainer>
         </Container>
     )
 }

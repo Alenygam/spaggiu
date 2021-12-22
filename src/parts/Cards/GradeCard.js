@@ -2,7 +2,9 @@ import React from 'react'
 
 import RoundReadOnlySlider from '../Sliders/RoundReadOnlySlider'
 
-export default function GradeCard({grade}) {
+export default function GradeCard({grade, numberOfChars}) {
+    if (!numberOfChars) numberOfChars = 13;
+
     return (
         <div style={{
             backgroundColor: '#EDC191',
@@ -10,8 +12,9 @@ export default function GradeCard({grade}) {
             gridTemplateColumns: '40px 40px 1fr',
             width: '100%',
             height: '40px',
-            margin: '5px',
-            borderRadius: '10px'
+            margin: '5px 0',
+            borderRadius: '10px',
+            color: "#0A2239"
         }}>
             <div style={{
                 position: 'relative'
@@ -54,7 +57,7 @@ export default function GradeCard({grade}) {
                     }}
                     title={grade.subjectDesc}
                 >
-                    {grade.subjectDesc.substr(0, 13)}...
+                    {grade.subjectDesc.substr(0, numberOfChars)}...
                 </p>
             </div>
         </div>
