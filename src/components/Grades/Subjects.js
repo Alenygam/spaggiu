@@ -4,8 +4,7 @@ import Api from '../../api/api';
 import {useNavigate} from 'react-router-dom';
 import Spinner from 'react-spinkit';
 import SubjectCard from '../../parts/Cards/SubjectCard';
-import RoundReadOnlySlider from '../../parts/Sliders/RoundReadOnlySlider';
-import GradeCard from '../../parts/Cards/GradeCard';
+import SidePanel from './SidePanel';
 
 const Container = styled.div`
     position: absolute;
@@ -104,37 +103,7 @@ export default function Subjects({period}) {
         <Container>
             <GridContainer>
                 <FlexBox>
-                    <div style={{
-                        width: '250px',
-                        height: '250px',
-                        backgroundColor: '#061523',
-                        borderRadius: '10px',
-                        position: 'relative',
-                    }}>
-                        <div style={{
-                            position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)'
-                        }}>
-                            <RoundReadOnlySlider
-                                value={averageGrade}
-                                progressColor="#B84A62"
-                                size={200} 
-                                progressWidth={10}
-                            />
-                        </div>
-                        <p style={{
-                            position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            fontSize: 20
-                        }}>
-                            {averageGrade}
-                        </p>
-                    </div>
-                    {grades.splice(0, 3).map((grade) => <GradeCard key={grade.evtId} grade={grade} numberOfChars={13}/>)}
+                    <SidePanel averageGrade={averageGrade} grades={grades}/>
                 </FlexBox>
                 <FlexBox>
                     {
