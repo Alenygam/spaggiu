@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import styled from 'styled-components';
 import Spinner from 'react-spinkit';
+import { useNavigate } from 'react-router-dom';
 
 import Api from '../../api/api';
 
@@ -16,10 +17,12 @@ const WidgetContainer = styled.div`
     color: #0A2239;
     border-radius: 20px;
     padding: 40px 50px;
+    cursor: pointer;
 `;
 
 export default function AbsencesWidget() {
     const [absences, setAbsences] = useState();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const api = new Api();
@@ -41,7 +44,7 @@ export default function AbsencesWidget() {
         )
     }
     return (
-        <WidgetContainer>
+        <WidgetContainer onClick={() => {navigate('/absences')}}>
             <p style={{fontSize: 18, marginBottom: '15px'}}>
                 <b>Assenze</b>
             </p>
