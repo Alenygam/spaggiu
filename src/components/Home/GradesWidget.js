@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import Spinner from 'react-spinkit';
+import { useNavigate } from 'react-router-dom';
 
 import RoundReadOnlySlider from '../../parts/Sliders/RoundReadOnlySlider';
 import GradeCard from '../../parts/Cards/GradeCard';
@@ -15,11 +16,13 @@ const WidgetContainer = styled.div`
     color: #0A2239;
     border-radius: 20px;
     padding: 50px 5px;
+    cursor: pointer;
 `;
 
 export default function GradesWidget() {
     const [grades, setGrades] = useState();
     const [gradesAverage, setGradesAverage] = useState();
+    const navigate = useNavigate();
 
     useEffect(() => {
         // It is literally impossible for this to not be authenticated. See home component
@@ -55,7 +58,7 @@ export default function GradesWidget() {
     }
 
     return (
-        <WidgetContainer>
+        <WidgetContainer onClick={() => navigate('/grades')}>
             <div style={{
                 display: 'flex',
                 alignItems: 'center',
