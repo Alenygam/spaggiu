@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
-import MaterialIcon from 'material-icons-react';
+import {ArrowArcRight} from 'phosphor-react';
 
 const OpenAndCloseButton = styled.button`
     height: 64px;
@@ -28,7 +28,7 @@ export default function SidebarCloseButton({isOpen, setIsOpen}) {
     return (
         <div style={{position: 'relative', height: '64px'}}>
             <OpenAndCloseButton onClick={() => setIsOpen(!isOpen)} isOpen={isOpen}>
-                <MaterialIcon icon="chevron_right" color="#ffffff" size={50}/>
+                <ArrowArcRight color="#ffffff" size={50}/>
             </OpenAndCloseButton>
         </div>
     )

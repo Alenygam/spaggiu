@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import MaterialIcon from 'material-icons-react';
+import {Check, X} from 'phosphor-react';
 
 const AbsenceCardContainer = styled.div`
     background-color: #B84A62;
@@ -33,7 +33,7 @@ export default function AbsenceCard({absence}) {
                 <div style={{
                     margin: '5px 5px',
                 }}>
-                    <MaterialIcon icon={absence.isJustified ? "done" : "clear"} color="#ffffff" size={40}/>
+                    {absence.isJustified ? <Check size={40}/> : <X size={40}/>}
                 </div>
             </div>
         </AbsenceCardContainer>
