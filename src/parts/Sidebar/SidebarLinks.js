@@ -1,35 +1,32 @@
 import React, {useRef, useState, useEffect} from 'react'
-import styled, {keyframes} from 'styled-components';
+import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
-const sidebarAnimation = keyframes`
-    0% {opacity: 0%;}
-    100% {opacity: 100%;}
-`
-
-const sidebarAnimationReverse = keyframes`
-    0% {opacity: 100%;}
-    100% {opacity: 0%;}
-`
+import {HouseLine, GraduationCap, AddressBook, Files, CalendarBlank} from 'phosphor-react'
 
 const SidebarLinksContainer = styled.div`
     flex-direction: column;
-    display: ${(props) => props.isFlex ? 'flex' : 'none'};
-
-    animation-name: ${(props) => props.isOpen ? sidebarAnimation : sidebarAnimationReverse};
-    animation-duration: .5s;
+    display: flex;
     white-space: nowrap;
+    z-index: 998;
+    position: fixed;
+    top: 0;
+    left: ${(props) => props.isOpen ? '0px' : '-300px'};
+    height: 100%;
+    width: 300px;
+    transition: .5s;
+    background-color: #191A27;
 `
 
 const SidebarLink = styled.button`
-    padding: 16px 0;
-    margin: 8px 0;
-    font-size: 16px;
-    text-align: center;
+    display: flex;
+    flex-direction: row;
     border-radius: 10px;
     background-color: transparent;
     color: #fff;
     transition: .25s;
+    padding: 16px;
+    margin: 5px;
 
     :hover {
         background-color: #B84A62;
@@ -37,43 +34,39 @@ const SidebarLink = styled.button`
 `
 
 export default function SidebarLinks({isOpen}) {
-    const [isFlex , setIsFlex] = useState(false)
-    const isMounted = useRef(false);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        isMounted.current = true;
-
-        return () => isMounted.current = false;
-    }, [])
-    
-    // I link appaiono per un secondo anche quando la barra e chiusa, per la prima volta
-    // TODO: Fix this
-    useEffect(() => {
-        setIsFlex(true);
-        if (!isOpen) {
-            setTimeout(() => {
-                if (isMounted.current) setIsFlex(false);
-            }, 500)
-        }
-    }, [isOpen])
-
     return (
-        <SidebarLinksContainer isOpen={isOpen} isFlex={isFlex}>
+        <SidebarLinksContainer isOpen={isOpen}>
             <SidebarLink onClick={() => navigate('/home')}>
-                Home
+                <HouseLine size={30}/>
+                <div style={{flexGrow: 1, position: 'relative'}}>
+                    <p style={{position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)'}}>Home</p>
+                </div>
             </SidebarLink>
             <SidebarLink onClick={() => navigate('/grades')}>
-                Voti
+                <GraduationCap size={30}/>
+                <div style={{flexGrow: 1, position: 'relative'}}>
+                    <p style={{position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)'}}>Voti</p>
+                </div>
             </SidebarLink>
             <SidebarLink onClick={() => navigate('/absences')}>
-                Assenze
+                <AddressBook size={30}/>
+                <div style={{flexGrow: 1, position: 'relative'}}>
+                    <p style={{position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)'}}>Assenze</p>
+                </div>
             </SidebarLink>
             <SidebarLink onClick={() => navigate('/noticeboard')}>
-                Bacheca
+                <Files size={30}/>
+                <div style={{flexGrow: 1, position: 'relative'}}>
+                    <p style={{position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)'}}>Bacheca</p>
+                </div>
             </SidebarLink>
             <SidebarLink onClick={() => navigate('/agenda')}>
-                Agenda
+                <CalendarBlank size={30}/>
+                <div style={{flexGrow: 1, position: 'relative'}}>
+                    <p style={{position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)'}}>Agenda</p>
+                </div>
             </SidebarLink>
         </SidebarLinksContainer>
     )
