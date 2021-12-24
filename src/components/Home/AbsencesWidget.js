@@ -8,13 +8,12 @@ import Api from '../../api/api';
 import AbsenceCard from '../../parts/Cards/AbsenceCard';
 
 const WidgetContainer = styled.div`
-    width: 400px;
     height: 300px;
-    background-color: #FFFFFF;
+    background-color: #1E1F2F;
+    color: #FFFFFF;
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: #0A2239;
     border-radius: 20px;
     padding: 40px 50px;
     cursor: pointer;

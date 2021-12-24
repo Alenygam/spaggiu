@@ -1,21 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 
 import {Check, X} from 'phosphor-react';
 
 const AbsenceCardContainer = styled.div`
-    background-color: #B84A62;
+    background-color: #F78D99;
+    color: #000;
     width: 250px;
     height: 50px;
     margin: 2.5px;
     border-radius: 10px;
-    color: #fff;
 
     display: grid;
     grid-template-columns: 1fr 1fr;
 `;
 
 export default function AbsenceCard({absence}) {
+    const date = moment(new Date(absence.evtDate));
     return (
         <AbsenceCardContainer>
             <div style={{
@@ -23,7 +25,7 @@ export default function AbsenceCard({absence}) {
                 textAlign: 'center',
                 margin: 'auto 0',
             }}>
-                {absence.evtDate}
+                {date.format('DD MMMM yyyy')}
             </div>
             <div style={{
                 display: 'flex',
