@@ -1,27 +1,17 @@
-import React from 'react';
 import styled from 'styled-components';
   
-const ButtonStyle = styled.button`
-  width: 113px;
-  height: 30px;
-  border-radius: .5em;
-  background-color: #B84A62;
+const Button = styled.button`
+  width: 100%;
+  height: 31px;
+  background-color: #F6A979;
   color: #FFFFFF;
+  margin-top: 21px;
   transition: .5s;
-  font-family: 'Smooch', sans-serif;
+  font-weight: 600;
 
   :hover {
-    color: #0A2239;
-    background-color: #F6E9EB;
+    background-color: #63689C;
   }
-`
+`;
 
-function Button({onClick, children}) {
-  return (
-    <ButtonStyle onClick={onClick}>
-      {children}
-    </ButtonStyle>
-  )
-}
-
-export default Button
+export default Button;
