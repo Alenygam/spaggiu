@@ -10,19 +10,22 @@ import AbsencesWidget from '../components/Home/AbsencesWidget';
 import Api from '../api/api';
 
 const Container = styled.div`
-    background-color: #0A2239;
+    background-color: #282A3E;
     color: #FFFFFF;
-    min-height: 100%;
+    height: 100%;
+    overflow: auto;
     position: relative;
 `;
 
 const WidgetContainer = styled.div`
     overflow: auto;
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     display: grid;
+    grid-auto-flow: row;
+    grid-template-columns: repeat( auto-fill, minmax(295px, 1fr));
     grid-gap: 40px;
-    padding: 40px;
+    padding: 60px 40px;
 `;
 
 export default function Home() {

@@ -17,7 +17,7 @@ export default function RoundReadOnlySlider({value, progressColor, size, progres
                 cx={center}
                 cy={center}
                 r={radius}
-                strokeWidth={progressWidth}
+                strokeWidth={progressWidth - 2}
             />
             <circle
                 stroke={progressColor}
@@ -30,15 +30,5 @@ export default function RoundReadOnlySlider({value, progressColor, size, progres
                 strokeDashoffset={offset}
             />
         </svg>
-        // <CircleSlider 
-        //     value={value} 
-        //     max={10} 
-        //     size={size} 
-        //     disabled={true} 
-        //     knobColor="transparent"
-        //     progressWidth={progressWidth}
-        //     progressColor={progressColor}
-        //     knobRadius={0}
-        // />
     )
 }
