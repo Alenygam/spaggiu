@@ -29,7 +29,7 @@ const SidebarLink = styled.button`
     margin: 5px;
 
     :hover {
-        background-color: #B84A62;
+        background-color: #F45F71;
     }
 `
 
