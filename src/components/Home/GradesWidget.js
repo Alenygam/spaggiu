@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import RoundReadOnlySlider from '../../parts/Sliders/RoundReadOnlySlider';
 import GradeCard from '../../parts/Cards/GradeCard';
 import Api from '../../api/api';
+import getGradeColor from '../../common/getGradeColor';
 
 const WidgetContainer = styled.div`
     height: 300px;
@@ -70,7 +71,7 @@ export default function GradesWidget() {
                 <CenterAbsolute>
                     <RoundReadOnlySlider
                         value={gradesAverage}
-                        progressColor="#2377C6"
+                        progressColor={getGradeColor(gradesAverage)}
                         size={120}
                         progressWidth={10}
                     />

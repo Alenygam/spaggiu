@@ -2,16 +2,17 @@ import React from 'react'
 import styled from 'styled-components'
 
 import RoundReadOnlySlider from '../Sliders/RoundReadOnlySlider'
+import getGradeColor from '../../common/getGradeColor'
 
 const GradeCardContainer = styled.div`
-    background-color: #F6A979;
-    color: #000000;
+    background-color: #191A27;
     display: flex;
     flex-direction: row;
     width: 280px;
     border-radius: 10px;
     margin: 5px 0;
-    height: 40px;
+    padding: 1px;
+    height: 42px;
 `
 
 export default function GradeCard({grade, numberOfChars}) {
@@ -24,7 +25,7 @@ export default function GradeCard({grade, numberOfChars}) {
             }}>
                 <RoundReadOnlySlider
                     value={grade.decimalValue}
-                    progressColor="#2377C6"
+                    progressColor={getGradeColor(grade.decimalValue)}
                     size={40}
                     progressWidth={5}
                 />
