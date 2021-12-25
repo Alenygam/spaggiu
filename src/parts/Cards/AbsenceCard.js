@@ -8,7 +8,7 @@ import {Check, X} from 'phosphor-react';
 const AbsenceCardContainer = styled.div`
     background-color: #F78D99;
     color: #000;
-    width: 250px;
+    width: 280px;
     height: 50px;
     margin: 2.5px;
     border-radius: 10px;
