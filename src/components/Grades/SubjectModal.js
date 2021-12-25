@@ -1,7 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import styled from 'styled-components';
 import RoundReadOnlySlider from '../../parts/Sliders/RoundReadOnlySlider';
 import GradeCardForModal from '../../parts/Cards/GradeCardForModal';
+import getGradeColor from '../../common/getGradeColor';
+
+import { X } from 'phosphor-react';
+import { Chart } from 'react-charts';
 
 const CenterAbsolute = styled.div`
     position: absolute;
@@ -26,39 +30,50 @@ export default function SubjectModal({grades, subject, setModalData}) {
 
     return (
         <div style={{
-            position: 'absolute',
+            position: 'fixed',
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: '600px',
+            width: '100vw',
+            maxWidth: '320px',
             height: '300px',
-            backgroundColor: '#ffffff',
+            backgroundColor: '#1E1F2F',
             borderRadius: '10px',
             padding: '10px',
-            color: '#0A2239'
+            color: '#FFFFFF'
         }}>
             <div style={{
                 width: '100%',
                 height: '100%',
                 position: 'relative',
                 display: 'flex',
-                flexDirection: 'row'
+                flexDirection: 'column'
             }}>
                 <CloseButton setModalData={setModalData}/>
                 <div style={{
-                    width: '280px',
-                    height: '280px',
-                    position: 'relative'
+                    width: '100%',
+                    height: '120px',
+                    display: 'flex',
+                    flexDirection: 'row'
                 }}>
-                    <RoundReadOnlySlider
-                        progressWidth={10}
-                        value={subject.averageGrade}
-                        size={280}
-                        progressColor="#D98324"
-                    />
-                    <CenterAbsolute>
-                        <p style={{fontSize: 18}}>{subject.averageGrade}</p>
-                    </CenterAbsolute>
+                    <div style={{position: 'relative'}}>
+                        <RoundReadOnlySlider
+                            progressWidth={10}
+                            value={subject.averageGrade}
+                            size={120}
+                            progressColor={getGradeColor(subject.averageGrade)}
+                        />
+                        <CenterAbsolute>
+                            <p style={{fontSize: 18}}>{subject.averageGrade}</p>
+                        </CenterAbsolute>
+                    </div>
+                    {
+                        subjectGrades.length > 0 && (
+                            <div style={{flexGrow: 1}}>
+                                <SubjectChart subjectGrades={subjectGrades}/>
+                            </div>
+                        )
+                    }
                 </div>
                 <div style={{
                     flexGrow: 1,
@@ -76,6 +91,47 @@ export default function SubjectModal({grades, subject, setModalData}) {
     )
 }
 
+function SubjectChart({subjectGrades}) {
+    const gradesWithIndexAndNoNullValues = subjectGrades
+        .filter((grade) => !!grade.decimalValue)
+        .map((grade, index) => ({...grade, index: index}))
+
+    const data = [
+        {
+            label: "Voti",
+            data: gradesWithIndexAndNoNullValues
+        }
+    ]
+
+    const primaryAxis = useMemo(
+        () => ({getValue: datum => datum.index}),
+        []
+    )
+
+    const secondaryAxes = useMemo(
+        () => [{getValue: datum => datum.decimalValue}],
+        []
+    )
+
+    const getSeriesStyle = React.useCallback(() => ({
+        fill: '#F78D99',
+        stroke: '#F78D99'
+    }), [])
+
+    return (
+        <Chart
+            options={{
+                data,
+                primaryAxis,
+                secondaryAxes,
+
+                getSeriesStyle: getSeriesStyle,
+                dark: true
+            }}
+        />
+    )
+}
+
 function CloseButton({setModalData}) {
     return (
         <div style={{
@@ -86,12 +142,13 @@ function CloseButton({setModalData}) {
             top: 0,
             right: 0,
             cursor: 'pointer',
-            backgroundColor: '#B84A62',
+            backgroundColor: '#F13248',
             display: 'grid',
             placeItems: 'center',
-            color: '#fff'
+            color: '#fff',
+            zIndex: 999
         }} onClick={() => setModalData(null)}>
-            <p style={{textAlign: 'center'}}>X</p>
+            <X size={20}/>
         </div>
     )
 }

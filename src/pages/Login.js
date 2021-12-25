@@ -4,12 +4,10 @@ import { useNavigate } from 'react-router-dom';
 
 import Api from '../api/api';
 
-import Triangles from '../components/Login/Triangles';
-import BGImages from '../components/Login/BGImages';
 import LoginForm from '../components/Login/LoginForm';
 
 const Container = styled.div`
-    background-color: #0A2239;
+    background-color: #282A3E;
     color: #FFFFFF;
     height: 100%;
     position: relative;
@@ -37,9 +35,9 @@ export default function Login() {
 
     return (
         <Container>
-            <Triangles loading={loading}/>
-            <LoginForm submitForm={submitForm}/>
-            <BGImages/>
+            <div style={{display: 'grid', placeItems: 'center'}}>
+                <LoginForm loading={loading} submitForm={submitForm}/>
+            </div>
         </Container>
     );
 }

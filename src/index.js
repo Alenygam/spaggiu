@@ -24,7 +24,7 @@ const GlobalStyle = createGlobalStyle`
   }  body {
     -webkit-font-smoothing: antialiased;
   }  body, input, button {
-    font: 14px 'Roboto', sans-serif;
+    font: 16px 'Fira Sans', sans-serif;
   }  a {
     text-decoration: none;
   }  ul {

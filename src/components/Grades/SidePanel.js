@@ -1,29 +1,57 @@
-import React from 'react'
+import React, {useMemo} from 'react'
+import styled from 'styled-components'
+
 import RoundReadOnlySlider from '../../parts/Sliders/RoundReadOnlySlider'
+import getGradeColor from '../../common/getGradeColor';
+import { Chart } from 'react-charts';
+
+const Container = styled.div`
+    height: 120px;
+    background-color: #1E1F2F;
+    border-radius: 10px;
+    width: 350px;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 15px;
+    margin-top: 10px;
+`
 
 export default function SidePanel({averageGrade, grades}) {
+    const gradesWithIndexAndNoNullValues = grades
+        .filter((grade) => !!grade.decimalValue)
+        .map((grade, index) => ({...grade, index: index}))
+
+    const data = [
+        {
+            label: "Voti",
+            data: gradesWithIndexAndNoNullValues
+        }
+    ]
+
+    const primaryAxis = useMemo(
+        () => ({getValue: datum => datum.index}),
+        []
+    )
+
+    const secondaryAxes = useMemo(
+        () => [{getValue: datum => datum.decimalValue}],
+        []
+    )
+
+    const getSeriesStyle = React.useCallback(() => ({
+        fill: '#F78D99',
+        stroke: '#F78D99'
+    }), [])
+
     return (
-        <>
-            <div style={{
-                width: '250px',
-                height: '250px',
-                backgroundColor: '#061523',
-                borderRadius: '10px',
-                position: 'relative',
-            }}>
-                <div style={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)'
-                }}>
-                    <RoundReadOnlySlider
-                        value={averageGrade}
-                        progressColor="#B84A62"
-                        size={200} 
-                        progressWidth={10}
-                    />
-                </div>
+        <Container>
+            <div style={{position: 'relative'}}>
+                <RoundReadOnlySlider
+                    value={averageGrade}
+                    progressColor={getGradeColor(averageGrade)}
+                    size={120} 
+                    progressWidth={10}
+                />
                 <p style={{
                     position: 'absolute',
                     top: '50%',
@@ -34,6 +62,18 @@ export default function SidePanel({averageGrade, grades}) {
                     {averageGrade}
                 </p>
             </div>
-        </>
+            <div style={{flexGrow: 1}}>
+                <Chart
+                    options={{
+                        data,
+                        primaryAxis,
+                        secondaryAxes,
+
+                        getSeriesStyle: getSeriesStyle,
+                        dark: true
+                    }}
+                />
+            </div>
+        </Container>
     )
 }
