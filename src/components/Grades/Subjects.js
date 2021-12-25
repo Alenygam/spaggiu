@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import { unstable_batchedUpdates } from 'react-dom';
 import styled from 'styled-components'
 import Api from '../../api/api';
 import {useNavigate} from 'react-router-dom';
@@ -8,27 +9,16 @@ import SidePanel from './SidePanel';
 import SubjectModal from './SubjectModal';
 
 const Container = styled.div`
-    position: absolute;
-    top: 160px;
-    left: 290px;
-    width: calc(100% - 490px);
-    height: calc(100% - 320px);
+    position: relative;
+    min-height: calc(100vh - 200px);
 `
 
-const FlexBox = styled.div`
-    width: 100%;
+const Box = styled.div`
+    display: flex;
     flex-direction: column;
-    height: 100%;
-    overflow: auto;
-`
-
-const GridContainer = styled.div`
-    display: grid;
-    grid-template-columns: 250px 1fr;
-    padding: 10px;
-    grid-gap: 10px;
-    grid-auto-flow: row;
-    height: 100%;
+    align-items: center;
+    width: 100%;
+    height: calc(100vh - 200px);
 `
 
 export default function Subjects({period}) {
@@ -80,9 +70,11 @@ export default function Subjects({period}) {
                 }
             }
             
-            setAverageGrade(getAverageGrade(allGradesForPeriod));
-            setSubjects(res);
-            setGrades(allGradesForPeriod);
+            unstable_batchedUpdates(() => {
+                setAverageGrade(getAverageGrade(allGradesForPeriod));
+                setSubjects(res);
+                setGrades(allGradesForPeriod);
+            })
         })()
     }, [navigate, period])
 
@@ -93,9 +85,9 @@ export default function Subjects({period}) {
                     position: 'absolute',
                     top: '50%',
                     left: '50%',
-                    transform: 'scale(1.5) translate(-50%, -50%)',
+                    transform: 'translate(-50%, -50%) scale(1.5)',
                 }}>
-                    <Spinner name="wandering-cubes" color="#D98324"/>
+                    <Spinner name="wandering-cubes" color="#F38D4F"/>
                 </div>
             </Container>
         )
@@ -104,18 +96,16 @@ export default function Subjects({period}) {
     return (
         <>
             <Container>
-                <GridContainer>
-                    <FlexBox>
-                        <SidePanel averageGrade={averageGrade} grades={grades}/>
-                    </FlexBox>
-                    <FlexBox>
+                <Box>
+                    <SidePanel averageGrade={averageGrade} grades={grades}/>
+                    <div style={{flexGrow: 1, overflow: 'auto', width: 315}}>
                         {
                             Object.keys(subjects).map((subject) => {
                                 return <SubjectCard onClick={() => setModalData(subjects[subject])} subject={subjects[subject]} key={`${subject}-subject`}/>
                             })
                         }
-                    </FlexBox>
-                </GridContainer>
+                    </div>
+                </Box>
             </Container>
             {modalData && <SubjectModal setModalData={setModalData} grades={grades} subject={modalData}/>}
         </>

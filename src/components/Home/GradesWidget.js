@@ -6,18 +6,26 @@ import { useNavigate } from 'react-router-dom';
 import RoundReadOnlySlider from '../../parts/Sliders/RoundReadOnlySlider';
 import GradeCard from '../../parts/Cards/GradeCard';
 import Api from '../../api/api';
+import getGradeColor from '../../common/getGradeColor';
 
 const WidgetContainer = styled.div`
-    width: 400px;
     height: 300px;
-    background-color: #FFFFFF;
-    display: grid;
-    grid-template-columns: 40% 60%;
-    color: #0A2239;
+    background-color: #1E1F2F;
+    color: #FFFFFF;
     border-radius: 20px;
-    padding: 50px 5px;
     cursor: pointer;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `;
+
+const CenterAbsolute = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`
 
 export default function GradesWidget() {
     const [grades, setGrades] = useState();
@@ -59,38 +67,28 @@ export default function GradesWidget() {
 
     return (
         <WidgetContainer onClick={() => navigate('/grades')}>
-            <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                flexDirection: 'column',
-            }}>
-                <p style={{fontSize: 18}}>
-                    <b>Media</b>
-                </p>
-                <RoundReadOnlySlider
-                    value={gradesAverage}
-                    progressColor="#2377C6"
-                    size={120}
-                    progressWidth={10}
-                />
-                <p style={{fontSize: 18}}>
-                    {gradesAverage}
-                </p>
+            <div style={{position: 'relative', height: 140}}>
+                <CenterAbsolute>
+                    <RoundReadOnlySlider
+                        value={gradesAverage}
+                        progressColor={getGradeColor(gradesAverage)}
+                        size={120}
+                        progressWidth={10}
+                    />
+                </CenterAbsolute>
+                <CenterAbsolute>
+                    <p style={{
+                        fontSize: 18, 
+                    }}>
+                        {gradesAverage}
+                    </p>
+                </CenterAbsolute>
             </div>
-            <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                flexDirection: 'column',
-            }}>
-                <p style={{fontSize: 18, marginBottom: '16px'}}>
-                    <b>Voti Recenti</b>
-                </p>
-                {
-                    grades.map((grade, index) => {
-                        return <GradeCard key={`${index}-grade`} grade={grade}/>
-                    })
-                }
-            </div>
+            {
+                grades.map((grade, index) => {
+                    return <GradeCard key={`${index}-grade`} grade={grade}/>
+                })
+            }
         </WidgetContainer>
     )
 }

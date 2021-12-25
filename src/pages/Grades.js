@@ -10,11 +10,12 @@ import Subjects from '../components/Grades/Subjects';
 import Api from '../api/api';
 
 const Container = styled.div`
-    background-color: #0A2239;
+    background-color: #282A3E;
     color: #FFFFFF;
-    height: 100%;
+    min-height: 100%;
+    overflow: auto;
     position: relative;
-    overflow: hidden;
+    padding: 60px 20px;
 `;
 
 
@@ -44,7 +45,7 @@ export default function Grades() {
                     left: '50%',
                     transform: 'scale(1.5) translate(-50%, -50%)',
                 }}>
-                    <Spinner name="wandering-cubes" color="#D98324"/>
+                    <Spinner name="wandering-cubes" color="#F38D4F"/>
                 </div>
             </Container>
         )
