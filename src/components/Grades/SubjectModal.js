@@ -67,9 +67,13 @@ export default function SubjectModal({grades, subject, setModalData}) {
                             <p style={{fontSize: 18}}>{subject.averageGrade}</p>
                         </CenterAbsolute>
                     </div>
-                    <div style={{flexGrow: 1}}>
-                        <SubjectChart subjectGrades={subjectGrades}/>
-                    </div>
+                    {
+                        subjectGrades.length > 0 && (
+                            <div style={{flexGrow: 1}}>
+                                <SubjectChart subjectGrades={subjectGrades}/>
+                            </div>
+                        )
+                    }
                 </div>
                 <div style={{
                     flexGrow: 1,
