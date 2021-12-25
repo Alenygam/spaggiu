@@ -7,10 +7,8 @@ export default function TabViewButtons({setPeriod, periods, selectedPeriod}) {
     return (
         <div style={{
             display: 'flex',
-            width: 'calc(100% - 490px)',
-            position: 'absolute',
-            left: '290px',
-            top: '100px',
+            overflow: 'auto',
+            height: '48px'
         }}>
             <AllPeriodsButton setPeriod={setPeriod} selected={!selectedPeriod}/>
             {
