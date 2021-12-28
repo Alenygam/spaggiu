@@ -4,27 +4,22 @@ import { useNavigate } from 'react-router-dom';
 import Spinner from 'react-spinkit'
 
 import Sidebar from '../parts/Sidebar';
-import AbsenceCardForPage from '../parts/Cards/AbsenceCardForPage';
+import AbsenceCard from '../parts/Cards/AbsenceCard';
 import Api from '../api/api';
 
 const Container = styled.div`
-    background-color: #0A2239;
+    background-color: #282A3E;
     color: #FFFFFF;
-    height: 100%;
+    padding: 60px 20px;
     position: relative;
     overflow: hidden;
-    display: grid;
-    place-items: center;
-`;
-
-const AbsencesContainer = styled.div`
+    
     display: flex;
     flex-direction: column;
-    width: 500px;
-    height: 600px;
-    padding: 10px;
+    align-items: center;
+    height: 100%;
     overflow: auto;
-`
+`;
 
 export default function Absences() {
     const [isAuthed, setIsAuthed] = useState(false);
@@ -63,13 +58,11 @@ export default function Absences() {
     return (
         <Container>
             <Sidebar/>
-            <AbsencesContainer>
-                {
-                    absences.map((absence) => {
-                        return <AbsenceCardForPage absence={absence}/>
-                    })
-                }
-            </AbsencesContainer>
+            {
+                absences.map((absence) => {
+                    return <AbsenceCard absence={absence}/>
+                })
+            }
         </Container>
     )
 }
