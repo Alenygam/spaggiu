@@ -40,7 +40,8 @@ export default function SubjectModal({grades, subject, setModalData}) {
             backgroundColor: '#1E1F2F',
             borderRadius: '10px',
             padding: '10px',
-            color: '#FFFFFF'
+            color: '#FFFFFF',
+            boxShadow: '0px 0px 300px black'
         }}>
             <div style={{
                 width: '100%',
