@@ -17,26 +17,24 @@ const monthNames = [
 ];
 
 
-export default function CalendarButtons({date, setDate}) {
+export default function CalendarButtons({date, setDate, setAgendaModal}) {
     const setPreviousMonth = () => {
         const d = new Date(date);
         d.setMonth(date.getMonth() - 1);
         setDate(d);
+        setAgendaModal(null)
     }
     
     const setNextMonth = () => {
         const d = new Date(date);
         d.setMonth(date.getMonth() + 1);
         setDate(d);
+        setAgendaModal(null)
     }
 
     return (
         <div style={{
             display: 'flex',
-            width: 'calc(100% - 490px)',
-            position: 'absolute',
-            left: '290px',
-            top: '100px',
         }}>
             <PrevNextCalendarButton onClick={setPreviousMonth}>Precedente</PrevNextCalendarButton>
             <div style={{
