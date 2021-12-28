@@ -26,9 +26,16 @@ export default function AbsenceCard({absence}) {
                 fontSize: 18,
                 textAlign: 'center',
                 margin: 'auto 0',
-                flexGrow: 1
             }}>
                 {date.format('DD MMMM yyyy')}
+            </div>
+            <div style={{
+                fontSize: 18,
+                textAlign: 'center',
+                margin: 'auto 0',
+                flexGrow: 1
+            }}>
+                {absence.justifReasonDesc && absence.justifReasonDesc}
             </div>
             <div style={{
                 margin: '5px 5px',

@@ -1,15 +1,17 @@
 import React, {useEffect} from 'react'
 import styled from 'styled-components';
 
+import { X } from 'phosphor-react';
+
 const ModalContainer = styled.div`
     background-color: #ffffff;
-    color: #0A2239;
+    color: #000;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    width: 600px;
+    width: 295px;
     height: 300px;
+    transform: translate(-50%, -50%);
     border-radius: 10px;
     padding: 10px;
     overflow: auto;
@@ -22,8 +24,9 @@ const ModalBox = styled.div`
 const EventContainer = styled.div`
     display: grid;
     grid-template-columns: 1fr 3fr;
+    grid-gap: 10px;
     grid-auto-flow: column dense;
-    min-height: 150px;
+    border-bottom: 1px solid black;
 `
 
 const Center = styled.div`
@@ -54,12 +57,12 @@ export default function AgendaModal({events, dateString, setAgendaModel}) {
                     top: 0,
                     right: 0,
                     cursor: 'pointer',
-                    backgroundColor: '#B84A62',
+                    backgroundColor: '#E31028',
                     display: 'grid',
                     placeItems: 'center',
                     color: '#fff'
                 }} onClick={() => setAgendaModel(null)}>
-                    <p style={{textAlign: 'center'}}>X</p>
+                    <X size={20}/>
                 </div>
                 {
                     events[dateString].map((event, index) => {

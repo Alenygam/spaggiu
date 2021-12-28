@@ -8,13 +8,13 @@ const PrevNextCalendarButton = styled.button`
     height: 48px;
     
     cursor: pointer;
-    border-bottom: 2px solid ${(props) => props.isSelected ? '#B84A62' : '#fff'};
+    border-bottom: 2px solid #fff;
     color: #fff;
     transition: .5s;
     flex: 1;
 
     :hover {
-        background-color: #07192A;
+        background-color: #1E1F2F;
     }
 `
 

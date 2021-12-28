@@ -5,7 +5,7 @@ const CalendarDayStyle = styled.div`
     height: 120px;
     grid-column-start: ${(props) => props.dayDate.getDay() + 1};
     grid-column-end: ${(props) => props.dayDate.getDay() + 2};
-    background-color: #07192A;
+    background-color: #1E1F2F;
     border-radius: 10px;
     padding: 10px;
     display: flex;
@@ -30,7 +30,7 @@ const Circle = styled.div`
     height: 10px;
     width: 10px;
     border-radius: 5px;
-    background-color: #B84A62;
+    background-color: #F78D99;
 `
 
 export default function CalendarDay({events, dayDate, setModalToShow}) {

@@ -7,13 +7,10 @@ import CalendarDay from "./CalendarDay";
 import AgendaModal from "./AgendaModal";
 
 const Container = styled.div`
-    width: calc(100% - 490px);
-    position: absolute;
-    left: 290px;
-    top: 160px;
+    position: relative;
     overflow: auto;
-    height: calc(100% - 320px);
     padding: 15px;
+    flex-grow: 1;
 `;
 
 export default function Calendar({ date }) {

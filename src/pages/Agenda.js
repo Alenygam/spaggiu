@@ -10,14 +10,18 @@ import CalendarButtons from '../components/Agenda/CalendarButtons';
 import Calendar from '../components/Agenda/Calendar';
 
 const Container = styled.div`
-    background-color: #0A2239;
+    background-color: #282A3E;
     color: #FFFFFF;
     height: 100%;
     position: relative;
     overflow: hidden;
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
 `;
 
 export default function Agenda() {
+    const [modalToShow, setModalToShow] = useState();
     const [isAuthed, setIsAuthed] = useState(false);
     const [date, setDate] = useState(new Date());
     const navigate = useNavigate();
@@ -45,8 +49,8 @@ export default function Agenda() {
     return (
         <Container>
             <Sidebar/>
-            <CalendarButtons date={date} setDate={setDate}/>
-            <Calendar date={date}/>
+            <CalendarButtons date={date} setDate={setDate} setAgendaModal={setModalToShow}/>
+            <Calendar date={date} setModalToShow={setModalToShow} modalToShow={modalToShow}/>
         </Container>
     )
 }
