@@ -56,12 +56,6 @@ export default function SidebarLinks({isOpen}) {
                     <p style={{position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)'}}>Assenze</p>
                 </div>
             </SidebarLink>
-            <SidebarLink onClick={() => navigate('/noticeboard')}>
-                <Files size={30}/>
-                <div style={{flexGrow: 1, position: 'relative'}}>
-                    <p style={{position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)'}}>Bacheca</p>
-                </div>
-            </SidebarLink>
             <SidebarLink onClick={() => navigate('/agenda')}>
                 <CalendarBlank size={30}/>
                 <div style={{flexGrow: 1, position: 'relative'}}>
