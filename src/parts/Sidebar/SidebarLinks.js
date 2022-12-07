@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
-import {HouseLine, GraduationCap, AddressBook, Files, CalendarBlank} from 'phosphor-react'
+import {HouseLine, GraduationCap, AddressBook, CalendarBlank} from 'phosphor-react'
 
 const SidebarLinksContainer = styled.div`
     flex-direction: column;
@@ -31,6 +31,19 @@ const SidebarLink = styled.button`
     :hover {
         background-color: #F45F71;
     }
+
+    div {
+        flex-grow: 1;
+        position: relative;
+        height: 100%;
+    }
+
+    div > p {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
 `
 
 export default function SidebarLinks({isOpen}) {
@@ -40,26 +53,26 @@ export default function SidebarLinks({isOpen}) {
         <SidebarLinksContainer isOpen={isOpen}>
             <SidebarLink onClick={() => navigate('/home')}>
                 <HouseLine size={30}/>
-                <div style={{flexGrow: 1, position: 'relative'}}>
-                    <p style={{position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)'}}>Home</p>
+                <div>
+                    <p>Home</p>
                 </div>
             </SidebarLink>
             <SidebarLink onClick={() => navigate('/grades')}>
                 <GraduationCap size={30}/>
-                <div style={{flexGrow: 1, position: 'relative'}}>
+                <div>
                     <p style={{position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)'}}>Voti</p>
                 </div>
             </SidebarLink>
             <SidebarLink onClick={() => navigate('/absences')}>
                 <AddressBook size={30}/>
-                <div style={{flexGrow: 1, position: 'relative'}}>
-                    <p style={{position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)'}}>Assenze</p>
+                <div>
+                    <p>Assenze</p>
                 </div>
             </SidebarLink>
             <SidebarLink onClick={() => navigate('/agenda')}>
                 <CalendarBlank size={30}/>
-                <div style={{flexGrow: 1, position: 'relative'}}>
-                    <p style={{position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)'}}>Agenda</p>
+                <div>
+                    <p>Agenda</p>
                 </div>
             </SidebarLink>
         </SidebarLinksContainer>
