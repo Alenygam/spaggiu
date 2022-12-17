@@ -18,7 +18,7 @@ class Api {
     token
     uid
     expire
-    baseURL = process.env.REACT_APP_API_URL || "https://rest-spaggiu.alenygam.com";
+    baseURL = "/api";
     constructor() {
         this.setFromLocalStorage();
     }
