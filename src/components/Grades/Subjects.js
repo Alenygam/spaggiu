@@ -100,7 +100,10 @@ export default function Subjects({period}) {
                     <SidePanel averageGrade={averageGrade} grades={grades}/>
                     <div style={{flexGrow: 1, overflow: 'auto', width: 315}}>
                         {
-                            Object.keys(subjects).map((subject) => {
+                            Object.keys(subjects)
+                                // Sort subjects in decreasing order
+                                .sort((a, b) => subjects[b].averageGrade - subjects[a].averageGrade)
+                                .map((subject) => {
                                 return <SubjectCard onClick={() => setModalData(subjects[subject])} subject={subjects[subject]} key={`${subject}-subject`}/>
                             })
                         }
