@@ -5,7 +5,6 @@ import Spinner from 'react-spinkit';
 
 import Api from '../api/api';
 
-import Sidebar from '../parts/Sidebar';
 import CalendarButtons from '../components/Agenda/CalendarButtons';
 import Calendar from '../components/Agenda/Calendar';
 
@@ -48,7 +47,6 @@ export default function Agenda() {
 
     return (
         <Container>
-            <Sidebar/>
             <CalendarButtons date={date} setDate={setDate} setAgendaModal={setModalToShow}/>
             <Calendar date={date} setModalToShow={setModalToShow} modalToShow={modalToShow}/>
         </Container>

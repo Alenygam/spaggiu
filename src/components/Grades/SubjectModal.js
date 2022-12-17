@@ -93,9 +93,10 @@ export default function SubjectModal({grades, subject, setModalData}) {
 }
 
 function SubjectChart({subjectGrades}) {
+    const lengthGradesNotNull = subjectGrades.filter((grade) => !!grade.decimalValue).length;
     const gradesWithIndexAndNoNullValues = subjectGrades
         .filter((grade) => !!grade.decimalValue)
-        .map((grade, index) => ({...grade, index: index}))
+        .map((grade, index) => ({...grade, index: lengthGradesNotNull - index}))
 
     const data = [
         {
@@ -127,7 +128,10 @@ function SubjectChart({subjectGrades}) {
                 secondaryAxes,
 
                 getSeriesStyle: getSeriesStyle,
-                dark: true
+                dark: true,
+                tooltip: {
+                    render: () => null
+                }
             }}
         />
     )
