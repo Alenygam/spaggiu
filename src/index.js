@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import * as ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import {createGlobalStyle} from 'styled-components';
 
@@ -9,6 +9,7 @@ import Grades from './pages/Grades';
 import Index from './pages/Index';
 import Agenda from './pages/Agenda';
 import Absences from './pages/Absences';
+import Sidebar from './parts/Sidebar';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -34,19 +35,25 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route exact path="/" element={<Index/>}/>
-        <Route exact path="/login" element={<Login/>}/>
-        <Route exact path="/home" element={<Home/>}/>
-        <Route exact path="/grades" element={<Grades/>}/>
-        <Route exact path="/agenda" element={<Agenda/>}/>
-        <Route exact path="/absences" element={<Absences/>}/>
-      </Routes>
-    </BrowserRouter>
-    <GlobalStyle />
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+const MainComponent = () => {
+
+  return (
+    <React.StrictMode>
+      <BrowserRouter>
+        <Sidebar />
+        <Routes>
+          <Route exact path="/" element={<Index/>}/>
+          <Route exact path="/login" element={<Login/>}/>
+          <Route exact path="/home" element={<Home/>}/>
+          <Route exact path="/grades" element={<Grades/>}/>
+          <Route exact path="/agenda" element={<Agenda/>}/>
+          <Route exact path="/absences" element={<Absences/>}/>
+        </Routes>
+      </BrowserRouter>
+      <GlobalStyle />
+    </React.StrictMode>
+  )
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<MainComponent />);

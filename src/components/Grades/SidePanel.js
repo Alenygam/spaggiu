@@ -17,9 +17,10 @@ const Container = styled.div`
 `
 
 export default function SidePanel({averageGrade, grades}) {
-    const gradesWithIndexAndNoNullValues = grades
+    const lengthGradesNotNull = grades.filter((grade) => !!grade.decimalValue).length;
+    var gradesWithIndexAndNoNullValues = grades
         .filter((grade) => !!grade.decimalValue)
-        .map((grade, index) => ({...grade, index: index}))
+        .map((grade, index) => ({...grade, index: lengthGradesNotNull - index}))
 
     const data = [
         {
@@ -70,7 +71,10 @@ export default function SidePanel({averageGrade, grades}) {
                         secondaryAxes,
 
                         getSeriesStyle: getSeriesStyle,
-                        dark: true
+                        dark: true,
+                        tooltip: {
+                            render: () => null
+                        }
                     }}
                 />
             </div>

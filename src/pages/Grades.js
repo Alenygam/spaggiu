@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Spinner from 'react-spinkit';
 import {useNavigate} from 'react-router-dom';
 
-import Sidebar from '../parts/Sidebar';
 import TabViewButtons from '../components/Grades/TabViewButtons';
 import Subjects from '../components/Grades/Subjects';
 
@@ -53,7 +52,6 @@ export default function Grades() {
 
     return (
         <Container>
-            <Sidebar/>
             <TabViewButtons setPeriod={setSelectedPeriod} periods={periods} selectedPeriod={selectedPeriod}/>
             <Subjects period={selectedPeriod}/>
         </Container>

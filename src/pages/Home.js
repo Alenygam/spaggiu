@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Spinner from 'react-spinkit';
 import {useNavigate} from 'react-router-dom';
 
-import Sidebar from '../parts/Sidebar';
 import GradesWidget from '../components/Home/GradesWidget';
 import AbsencesWidget from '../components/Home/AbsencesWidget';
 
@@ -15,17 +14,24 @@ const Container = styled.div`
     height: 100%;
     overflow: auto;
     position: relative;
+    display: grid;
+    place-items: center;
 `;
 
 const WidgetContainer = styled.div`
     overflow: auto;
+    height: 100%;
     width: 100%;
-    min-height: 100%;
     display: grid;
-    grid-auto-flow: row;
     grid-template-columns: repeat( auto-fill, minmax(295px, 1fr));
+    grid-auto-rows: 300px;
     grid-gap: 40px;
-    padding: 60px 40px;
+    padding: 25px;
+
+    > div {
+        display: grid;
+        place-items: center;
+    }
 `;
 
 export default function Home() {
@@ -42,10 +48,13 @@ export default function Home() {
     if (isAuthed) {
         return (
             <Container>
-                <Sidebar/>
                 <WidgetContainer>
-                    <GradesWidget/>
-                    <AbsencesWidget/>
+                    <div>
+                        <GradesWidget/>
+                    </div>
+                    <div>
+                        <AbsencesWidget/>
+                    </div>
                 </WidgetContainer>
             </Container>
         )

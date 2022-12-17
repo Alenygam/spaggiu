@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import Spinner from 'react-spinkit'
 
-import Sidebar from '../parts/Sidebar';
 import AbsenceCard from '../parts/Cards/AbsenceCard';
 import Api from '../api/api';
 
@@ -57,7 +56,6 @@ export default function Absences() {
 
     return (
         <Container>
-            <Sidebar/>
             {
                 absences.map((absence) => {
                     return <AbsenceCard absence={absence}/>

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {List} from 'phosphor-react';
 
 import SidebarLinks from './Sidebar/SidebarLinks';
+import { useLocation } from 'react-router-dom';
 
 const ButtonContainer = styled.div`
     position: fixed;
@@ -16,6 +17,7 @@ const ButtonContainer = styled.div`
     border-radius: 10px;
     cursor: pointer;
     background-color: #F38D4F;
+    color: #FFFFFF;
 
     display: grid;
     place-items: center;
@@ -27,6 +29,9 @@ const ButtonContainer = styled.div`
 
 export default function Sidebar() {
     const [isOpen, setIsOpen] = useState(false);
+    const location = useLocation();
+
+    if (location.pathname === '/login') return null;
 
     return (
         <>
