@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Spinner from 'react-spinkit';
 import {useNavigate} from 'react-router-dom';
 import {Chart} from 'react-charts'
+import { useMediaQuery } from 'usehooks-ts';
 
 import TabViewButtons from '../components/Grades/TabViewButtons';
 import getGradeColor from '../common/getGradeColor';
@@ -30,6 +31,49 @@ const InnerContainer = styled.div`
     grid-template-columns: 480px 295px;
     grid-template-rows: auto 1fr;
     grid-gap: 30px;
+
+    @media only screen and (max-width: 840px) {
+	width: auto;
+        grid-template-rows: auto auto 1fr;
+        grid-template-columns: 1fr;
+    }
+`
+
+const GeneralAverage = styled.div`
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    background-color: #1e1f2f;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    > div > p {
+        font-size: 40px;
+    }
+
+    > div {
+        margin-top: 16px;
+    }
+
+    @media only screen and (max-width: 840px) {
+        padding: 5px;
+        grid-template-rows: auto auto 1fr;
+        grid-template-columns: 1fr;
+        flex-direction: row;
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 2;
+        grid-row-end: 3;
+        > div > p {
+            font-size: 22px;
+        }
+        > div {
+            margin-top: 0;
+        }
+    }
 `
 
 function Graph ({grades}) {
@@ -90,6 +134,7 @@ export default function Grades() {
     const [grades, setGrades] = useState();
     const [averageGrade, setAverageGrade] = useState();
     const [modalData, setModalData] = useState();
+    const isMobile = useMediaQuery('(max-width: 840px)');
 
     const navigate = useNavigate();
 
@@ -171,34 +216,23 @@ export default function Grades() {
     return (
         <Container>
             <InnerContainer>
-                <div style={{
-                    gridColumnStart: '1',
-                    gridColumnEnd: '2',
-                    gridRowStart: '1',
-                    gridRowEnd: '3',
-                    backgroundColor: '#1e1f2f',
-                    borderRadius: '10px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center'
-                }}>
-                    <div style={{position: 'relative', marginTop: '16px'}}>
+                <GeneralAverage>
+                    <div style={{position: 'relative'}}>
                         <RoundReadOnlySlider
                             value={averageGrade}
                             progressColor={getGradeColor(averageGrade)}
-                            size={250}
-                            progressWidth={20}
+                            size={isMobile ? 120 : 250}
+                            progressWidth={isMobile ? 12 : 20}
                         />
                         <p style={{
                             position: 'absolute',
                             top: '50%',
                             left: '50%',
                             transform: 'translate(-50%, -50%)',
-                            fontSize: '40px'
                         }}>{averageGrade}</p>
                     </div>
                     <Graph grades={grades}/>
-                </div>
+                </GeneralAverage>
                 <TabViewButtons setPeriod={setSelectedPeriod} periods={periods} selectedPeriod={selectedPeriod}/>
                 {/* Fuck scrollbars */}
                 <div style={{overflow: 'auto', padding: '0 7px 0 0'}}>

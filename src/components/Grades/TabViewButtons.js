@@ -11,6 +11,14 @@ const Container = styled.div`
     > * {
         margin: 7px 0 0 0;
     }
+
+    @media only screen and (max-width: 840px) {
+	flex-direction: row;
+	overflow: auto;
+        > * {
+            margin: 0;
+        }
+    }
 `
 
 export default function TabViewButtons({setPeriod, periods, selectedPeriod}) {

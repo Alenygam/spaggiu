@@ -7,7 +7,6 @@ const Button = styled.button`
     background-color: transparent;
     border: none;
     margin: 2px;
-    min-width: 120px;
     
     cursor: pointer;
     border-bottom: 2px solid ${(props) => props.isSelected ? '#F78D99' : '#fff'};
