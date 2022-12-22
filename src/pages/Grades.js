@@ -1,16 +1,17 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useMemo} from 'react'
 import { unstable_batchedUpdates } from 'react-dom';
 import styled from 'styled-components';
 import Spinner from 'react-spinkit';
 import {useNavigate} from 'react-router-dom';
+import {Chart} from 'react-charts'
 
 import TabViewButtons from '../components/Grades/TabViewButtons';
 import getGradeColor from '../common/getGradeColor';
-// import Subjects from '../components/Grades/Subjects';
 
 import Api from '../api/api';
 import SubjectCard from '../parts/Cards/SubjectCard';
 import RoundReadOnlySlider from '../parts/Sliders/RoundReadOnlySlider';
+import SubjectModal from '../components/Grades/SubjectModal';
 
 const Container = styled.div`
     background-color: #282A3E;
@@ -30,6 +31,54 @@ const InnerContainer = styled.div`
     grid-template-rows: auto 1fr;
     grid-gap: 30px;
 `
+
+function Graph ({grades}) {
+    const lengthGradesNotNull = grades.filter((grade) => !!grade.decimalValue).length;
+    var gradesWithIndexAndNoNullValues = grades
+        .filter((grade) => !!grade.decimalValue)
+        .map((grade, index) => ({...grade, index: lengthGradesNotNull - index}));
+
+    const data = [
+        {
+            label: "Voti",
+            data: gradesWithIndexAndNoNullValues
+        }
+    ];
+
+    const primaryAxis = useMemo(
+        () => ({getValue: datum => datum.index}),
+        []
+    );
+
+    const secondaryAxes = useMemo(
+        () => [{getValue: datum => datum.decimalValue}],
+        []
+    )
+
+    const getSeriesStyle = React.useCallback(() => ({
+        fill: '#F78D99',
+        stroke: '#F78D99'
+    }), [])
+
+    return (
+        <div style={{width: '95%', height: '100%', margin: '20px'}}>
+            <Chart
+                options={{
+                    data,
+                    primaryAxis,
+                    secondaryAxes,
+                    
+                    getSeriesStyle: getSeriesStyle,
+                    dark: true,
+                    tooltip: {
+                        render: () => null
+                    }
+                }}
+            />
+        </div>
+    )
+	
+}
 
 
 export default function Grades() {
@@ -148,6 +197,7 @@ export default function Grades() {
                             fontSize: '40px'
                         }}>{averageGrade}</p>
                     </div>
+                    <Graph grades={grades}/>
                 </div>
                 <TabViewButtons setPeriod={setSelectedPeriod} periods={periods} selectedPeriod={selectedPeriod}/>
                 {/* Fuck scrollbars */}
@@ -156,11 +206,12 @@ export default function Grades() {
                         Object.keys(subjects)
                             .sort((a, b) => subjects[b].averageGrade - subjects[a].averageGrade)
                             .map((el) =>
-                                <SubjectCard subject={subjects[el]} key={`${el}-subject`} />
+                                <SubjectCard onClick={() => setModalData(subjects[el])} subject={subjects[el]} key={`${el}-subject`} />
                             )
                     }
                 </div>
             </InnerContainer>
+            {modalData && <SubjectModal setModalData={setModalData} grades={grades} subject={modalData}/>}
         </Container>
     )
 }
