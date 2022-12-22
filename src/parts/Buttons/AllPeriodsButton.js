@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Button = styled.button`
+    padding: 3px 0;
     font-size: 18px;
     background-color: transparent;
     border: none;

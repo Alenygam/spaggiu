@@ -8,7 +8,7 @@ const GradeCardContainer = styled.div`
     background-color: #191A27;
     display: flex;
     flex-direction: row;
-    width: 280px;
+    width: 295px;
     border-radius: 10px;
     margin: 5px 0;
     padding: 1px;
